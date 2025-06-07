@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo_user
+      MONGO_INITDB_ROOT_PASSWORD: mongo_password
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+  dev-backend:
+    build:
+      context: ./backend/dev
+      dockerfile: Dockerfile
+    container_name: dev_backend
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  prod-backend:
+    build:
+      context: ./backend/prod
+      dockerfile: Dockerfile
+    container_name: prod_backend
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - dev-backend
+      - prod-backend
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

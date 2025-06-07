@@ -10,14 +10,13 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Use MONGO_URI from the .env file
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 # Initialize MongoDB client
 mongo = PyMongo(app)
 
 @app.route('/')
-def index(): 
+def index():
     todos = mongo.db.todos.find().sort('created_at', -1)
     return render_template('index.html', todos=todos)
 
@@ -51,4 +50,6 @@ def delete(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    host = os.getenv('HOST', '0.0.0.0')
+    port = int(os.getenv('PORT', 5000))
+    app.run(host=host, port=port, debug=True)
