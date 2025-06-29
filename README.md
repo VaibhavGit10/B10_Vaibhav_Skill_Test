@@ -26,25 +26,26 @@ This project demonstrates the deployment of four containerized Node.js microserv
 
 ## 📁 Folder Structure
 
+```bash
 submission/
-├── deployments/ 
-│ ├── user-service.yaml
-│ ├── product-service.yaml
-│ ├── order-service.yaml
-│ └── gateway-service.yaml
-├── services/ 
-│ ├── user-service.yaml
-│ ├── product-service.yaml
-│ ├── order-service.yaml
-│ └── gateway-service.yaml
-├── ingress/ # (Optional) Ingress routing configuration
-│ └── ingress.yaml
-├── screenshots/ 
-│ ├── pods.png
-│ ├── logs.png
-│ └── service-test.png
-└── README.md 
-
+├── deployments/
+│   ├── user-service.yaml
+│   ├── product-service.yaml
+│   ├── order-service.yaml
+│   └── gateway-service.yaml
+├── services/
+│   ├── user-service.yaml
+│   ├── product-service.yaml
+│   ├── order-service.yaml
+│   └── gateway-service.yaml
+├── ingress/                         # (Optional) Ingress routing configuration
+│   └── ingress.yaml
+├── screenshots/
+│   ├── pods.png
+│   ├── logs.png
+│   └── service-test.png
+└── README.md
+```
 ---
 
 ## 🧰 Minikube Setup
